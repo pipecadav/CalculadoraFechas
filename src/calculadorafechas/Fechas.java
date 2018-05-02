@@ -5,13 +5,16 @@
  */
 package calculadorafechas;
 
-import java.time.Duration;
-import java.time.Instant;
+
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 
 /**
  *
@@ -24,15 +27,15 @@ public class Fechas {
         LocalDate fecha2 = formatearFecha(fechaFinal);
         Period periodo = Period.between(fecha1, fecha2);
         return ("La Diferencia es "+periodo.getYears()+" año(s), "+periodo.getMonths()+" mes(es) y "+periodo.getDays()+" día(s)");
+        
     }
     
-    public static void calcDiferenciaTiempo(String fechaInicial, String fechaFinal){
-        LocalDate fecha1 = formatearFecha(fechaInicial);
-        LocalDate fecha2 = formatearFecha(fechaFinal);
+    public static String calcDiferenciaTiempo(String fechaInicial, String fechaFinal){
+        Date fecha1 = formatearTiempo(fechaInicial);
+        Date fecha2 = formatearTiempo(fechaFinal);
+        long millisec = fecha2.getTime() - fecha1.getTime();
         
-        Duration duracion;
-        
-        
+        return (convertirMilliseconds(millisec));
     }
     
     public static LocalDate formatearFecha(String laFecha){
@@ -41,9 +44,18 @@ public class Fechas {
         return lcd;
     }
     
-    public static Temporal formatearTiempo(String laFecha){
+    public static Date formatearTiempo(String laFecha){
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate lcd = LocalDate.parse(laFecha, fmt);
-        return lcd;
+        Date dt = Date.valueOf(LocalDate.parse(laFecha, fmt));
+        return dt;
     }
+    
+    public static String convertirMilliseconds(long miliSeconds){
+        int hrs = (int) TimeUnit.MILLISECONDS.toHours(miliSeconds);
+        int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
+        int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
+        return String.format("%02d:%02d:%02d", hrs, min, sec);
+ }
+    
+    
 }
