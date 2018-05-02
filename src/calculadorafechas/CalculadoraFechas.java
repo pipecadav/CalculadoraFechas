@@ -17,7 +17,7 @@ public class CalculadoraFechas {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println(Fechas.calcDiferenciaFechas("15/03/1988", "15/05/2018"));;
-        System.out.println(Fechas.calcDiferenciaTiempo("15/03/1988", "18/03/1988"));;
+        System.out.println(Fechas.calcDiferenciaTiempo("15/03/1988", "17/03/1988"));;
     }
     
 }

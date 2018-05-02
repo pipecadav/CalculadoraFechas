@@ -51,9 +51,9 @@ public class Fechas {
     }
     
     public static String convertirMilliseconds(long miliSeconds){
-        int hrs = (int) TimeUnit.MILLISECONDS.toHours(miliSeconds);
-        int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
-        int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
+        long hrs = TimeUnit.MILLISECONDS.toHours(miliSeconds);
+        long min = (TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % TimeUnit.HOURS.toMinutes(1));
+        long sec = (TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % TimeUnit.MINUTES.toSeconds(1));
         return String.format("%02d:%02d:%02d", hrs, min, sec);
  }
     
